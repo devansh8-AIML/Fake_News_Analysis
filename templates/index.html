@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Analysis System</title>
+    <style>
+        /* This section contains all the styling to make it look professional */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #e2e8f0; /* Professional light grey/blue background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Subtle 3D shadow */
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #1a365d; /* Trustworthy deep navy blue */
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 28px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        /* Changes the border color when the user clicks inside the text box */
+        textarea:focus {
+            outline: none;
+            border-color: #3182ce; 
+        }
+
+        button {
+            width: 100%;
+            background-color: #2b6cb0;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2c5282; /* Darkens the button slightly when hovered */
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Logic to color the result box green or red automatically */
+        .result-real {
+            background-color: #f0fff4;
+            color: #22543d;
+            border: 1px solid #c6f6d5;
+        }
+
+        .result-fake {
+            background-color: #fff5f5;
+            color: #742a2a;
+            border: 1px solid #fed7d7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Fake News Analysis System</h1>
+        <p class="subtitle">Enter the contents of an article below for automated ML verification.</p>
+
+        <form action="/predict" method="POST">
+            <textarea name="news_text" rows="8" placeholder="Paste the news article text here..." required></textarea>
+            <button type="submit">Analyze Article</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="result-box {% if 'Real' in prediction_text %}result-real{% else %}result-fake{% endif %}">
+                {{ prediction_text }}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
